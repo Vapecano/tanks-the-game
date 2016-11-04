@@ -18,7 +18,7 @@ var mainState = {
     update: function () {
         // This function is called 60 times per second
         // It contains the game's logic
-       
+        
     }
 };
 
