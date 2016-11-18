@@ -26,6 +26,7 @@ var mainState = {
     layer = map.createLayer('Tile Layer 1');
     layer.resizeWorld();
     block = game.add.sprite(32,32,'block');
+        block.anchor.set(0.5);
     game.physics.arcade.enable(block);
          cursors = game.input.keyboard.createCursorKeys();
     },
@@ -35,11 +36,13 @@ var mainState = {
 
     if (cursors.left.isDown)
     {
-        block.body.x = Math.max(0, block.body.x - 10);
+        block.rotation += 0.1;
+        //block.body.x = Math.max(0, block.body.x - 10);
     }
     else if (cursors.right.isDown)
     {
-        block.body.x+=10;
+        //block.body.x+=10;
+        block.rotoation -= 0.1;
     }
 
     if (cursors.up.isDown)
