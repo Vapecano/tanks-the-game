@@ -2,7 +2,8 @@
 /*jslint sloppy:true, browser: true, devel: true, eqeq: true, vars: true, white: true*/
 var game;
 var map;
-var layer;
+var tilelayer;
+var collisionlayer;
 var block;
 var cursors;
 var mainState = {
@@ -21,10 +22,10 @@ var mainState = {
     
     game.stage.backgroundColor = '#787878';
     map = game.add.tilemap('map');
-    map.addTilesetImage('Kenney', 'tiles');
+    map.addTilesetImage("soup", 'tiles');
      game.physics.startSystem(Phaser.Physics.ARCADE);
-    layer = map.createLayer('Tile Layer 1');
-    layer.resizeWorld();
+    tilelayer = map.createLayer('Background');
+    tilelayer.resizeWorld();
     block = game.add.sprite(32,32,'block');
         block.anchor.set(0.5);
     game.physics.arcade.enable(block);
