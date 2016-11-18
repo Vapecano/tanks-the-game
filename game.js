@@ -6,6 +6,7 @@ var tilelayer;
 var collisionlayer;
 var block;
 var cursors;
+var music;
 var mainState = {
     // Here we add all the functions we need for our state
     // For this project we will just have 3 functions
@@ -15,6 +16,7 @@ var mainState = {
     game.load.tilemap('map', 'map.json', null, Phaser.Tilemap.TILED_JSON);  
     game.load.image('tiles', 'soup.png');
     game.load.image('block','block.png');
+    game.load.audio('music','Music.mp3');
     },
     create: function () { 
     
@@ -22,6 +24,8 @@ var mainState = {
     
     game.stage.backgroundColor = '#787878';
     map = game.add.tilemap('map');
+    music = game.add.audio('music');
+    music.play();
     map.addTilesetImage("soup", 'tiles');
      game.physics.startSystem(Phaser.Physics.ARCADE);
     tilelayer = map.createLayer('Background');
