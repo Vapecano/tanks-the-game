@@ -1,4 +1,4 @@
-/*global Phaser*/
+/* Tanks Maybe */
 /*jslint sloppy:true, browser: true, devel: true, eqeq: true, vars: true, white: true*/
 var game;
 var map;
