@@ -19,8 +19,12 @@ var mainState = {
     game.load.tilemap('map', 'level1.json', null, Phaser.Tilemap.TILED_JSON);  
 >>>>>>> origin/master
     game.load.image('tiles', 'soup.png');
+<<<<<<< Updated upstream
     game.load.image('block','block.png');
     game.load.audio('music','Music.mp3');
+=======
+    game.load.image('tank1','tank1.png');
+>>>>>>> Stashed changes
     },
     create: function () { 
     
@@ -34,33 +38,48 @@ var mainState = {
      game.physics.startSystem(Phaser.Physics.ARCADE);
     tilelayer = map.createLayer('Tile Layer 3');
     tilelayer.resizeWorld();
-    block = game.add.sprite(32,32,'block');
-        block.anchor.set(0.5);
+    block = game.add.sprite(100,100,'tank1');
+        block.anchor.set(0.5,0.5);
+         
     game.physics.arcade.enable(block);
+<<<<<<< Updated upstream
     block.body.collideWorldBounds = true;     
         cursors = game.input.keyboard.createCursorKeys();
+=======
+        block.body.drag.set(0);
+         cursors = game.input.keyboard.createCursorKeys();
+>>>>>>> Stashed changes
     },
     update: function () {
         // This function is called 60 times per second
         // It contains the game's logic
 
+<<<<<<< Updated upstream
     /*if (cursors.left.isDown)
+=======
+/*    if (cursors.right.isDown)
+>>>>>>> Stashed changes
     {
         block.rotation += 0.1;
         //block.body.x = Math.max(0, block.body.x - 10);
     }
-    else if (cursors.right.isDown)
+    else if (cursors.left.isDown)*/
+    block.body.velocity.x = 0;
+    block.body.velocity.y = 0;
+    block.body.angularVelocity = 0;
+
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
-        //block.body.x+=10;
-        block.rotoation -= 0.1;
+        block.body.angularVelocity = -200;
+    }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+    {
+        block.body.angularVelocity = 200;
     }
 
-    if (cursors.up.isDown)
+    if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
     {
-        block.body.y-=10;
-    }
-    else if (cursors.down.isDown)
-    {
+<<<<<<< Updated upstream
         block.body.y+=10;
     }*/    
     block.body.velocity.x = 0;
@@ -81,7 +100,22 @@ var mainState = {
         game.physics.arcade.velocityFromAngle(block.angle, 300, block.body.velocity);
     }
     else if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){ game.physics.arcade.velocityFromAngle(block.angle, -100, block.body.velocity);}
+=======
+        game.physics.arcade.velocityFromAngle(block.angle, 300, block.body.velocity);
+>>>>>>> Stashed changes
     }
+
+},
+    render: function() {
+
+    game.debug.spriteInfo('block', 32, 32);
+    game.debug.text('angularVelocity: ' + block.body.angularVelocity, 32, 200);
+    game.debug.text('angularAcceleration: ' + block.body.angularAcceleration, 32, 232);
+    game.debug.text('angularDrag: ' + block.body.angularDrag, 32, 264);
+    game.debug.text('deltaZ: ' + block.body.deltaZ(), 32, 296);
+
+}
+
 };
 
 // Initialize Phaser
