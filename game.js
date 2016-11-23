@@ -13,7 +13,7 @@ var mainState = {
     preload: function () {
         // This function will be executed at the beginning
         // That's where we load the game's assets
-    game.load.tilemap('map', 'map.json', null, Phaser.Tilemap.TILED_JSON);  
+    game.load.tilemap('map', 'map.json', null,Phaser.Tilemap.TILED_JSON);  
     game.load.image('tiles', 'soup.png');
     game.load.image('block','block.png');
     game.load.audio('music','Music.mp3');
@@ -33,13 +33,14 @@ var mainState = {
     block = game.add.sprite(32,32,'block');
         block.anchor.set(0.5);
     game.physics.arcade.enable(block);
-         cursors = game.input.keyboard.createCursorKeys();
+    block.body.collideWorldBounds = true;     
+        cursors = game.input.keyboard.createCursorKeys();
     },
     update: function () {
         // This function is called 60 times per second
         // It contains the game's logic
 
-    if (cursors.left.isDown)
+    /*if (cursors.left.isDown)
     {
         block.rotation += 0.1;
         //block.body.x = Math.max(0, block.body.x - 10);
@@ -57,7 +58,25 @@ var mainState = {
     else if (cursors.down.isDown)
     {
         block.body.y+=10;
-    }    
+    }*/    
+    block.body.velocity.x = 0;
+    block.body.velocity.y = 0;
+    block.body.angularVelocity = 0;
+
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+    {
+        block.body.angularVelocity = -200;
+    }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+    {
+        block.body.angularVelocity = 200;
+    }
+
+    if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
+    {
+        game.physics.arcade.velocityFromAngle(block.angle, 300, block.body.velocity);
+    }
+    else if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){ game.physics.arcade.velocityFromAngle(block.angle, -100, block.body.velocity);}
     }
 };
 
