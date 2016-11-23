@@ -3,6 +3,7 @@
 var game;
 var map;
 var tilelayer;
+var tilelayer2;
 var collisionlayer;
 var block;
 var cursors;
@@ -20,7 +21,7 @@ var mainState = {
     game.load.image('tiles', 'soup.png');
 
     game.load.image('block','block.png');
-    game.load.audio('music','Music.mp3');
+    game.load.audio('music','music.mp3');
 
     game.load.image('tank1','tank1.png');
 
@@ -34,44 +35,45 @@ var mainState = {
     music = game.add.audio('music');
     music.play();
     map.addTilesetImage('soup', 'tiles');
-     game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.physics.startSystem(Phaser.Physics.ARCADE);
     tilelayer = map.createLayer('Tile Layer 3');
-    tilelayer.resizeWorld();
-    block = game.add.sprite(100,100,'tank1');
-        block.anchor.set(0.5,0.5);
+    tilelayer2 = map.createLayer('backgroundLayer');
+    collisionlayer = map.createLayer('collisionLayer');
+    map.setCollisionBetween(204, 204, true, 'collisionLayer');
+    collisionlayer.resizeWorld();
+    block = game.add.sprite(300,300,'tank1');
+    block.anchor.set(0.5,0.5);
          
     game.physics.arcade.enable(block);
 
     block.body.collideWorldBounds = true;     
-        cursors = game.input.keyboard.createCursorKeys();
+    cursors = game.input.keyboard.createCursorKeys();
 
-        block.body.drag.set(0);
-         cursors = game.input.keyboard.createCursorKeys();
+    block.body.drag.set(0);
+    cursors = game.input.keyboard.createCursorKeys();
 
     },
     update: function () {
         // This function is called 60 times per second
         // It contains the game's logic
+        block.body.velocity.x = 0;
+        block.body.velocity.y = 0;
+        block.body.angularVelocity = 0;
 
+        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+        {
+            block.body.angularVelocity = -200;
+        }
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+        {
+            block.body.angularVelocity = 200;
+        }
 
-    block.body.velocity.x = 0;
-    block.body.velocity.y = 0;
-    block.body.angularVelocity = 0;
-
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
-    {
-        block.body.angularVelocity = -200;
-    }
-    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
-    {
-        block.body.angularVelocity = 200;
-    }
-
-    if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
-    {
-        game.physics.arcade.velocityFromAngle(block.angle, 300, block.body.velocity);
-    }
-
+        if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
+        {
+            game.physics.arcade.velocityFromAngle(block.angle, 300, block.body.velocity);
+        }
+        game.physics.arcade.collide(block, collisionlayer);
     }
 };
 
