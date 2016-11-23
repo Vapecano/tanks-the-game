@@ -13,7 +13,11 @@ var mainState = {
     preload: function () {
         // This function will be executed at the beginning
         // That's where we load the game's assets
+<<<<<<< HEAD
     game.load.tilemap('map', 'map.json', null,Phaser.Tilemap.TILED_JSON);  
+=======
+    game.load.tilemap('map', 'level1.json', null, Phaser.Tilemap.TILED_JSON);  
+>>>>>>> origin/master
     game.load.image('tiles', 'soup.png');
     game.load.image('block','block.png');
     game.load.audio('music','Music.mp3');
@@ -28,7 +32,7 @@ var mainState = {
     music.play();
     map.addTilesetImage("soup", 'tiles');
      game.physics.startSystem(Phaser.Physics.ARCADE);
-    tilelayer = map.createLayer('Background');
+    tilelayer = map.createLayer('Tile Layer 3');
     tilelayer.resizeWorld();
     block = game.add.sprite(32,32,'block');
         block.anchor.set(0.5);
