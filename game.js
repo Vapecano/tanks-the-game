@@ -8,28 +8,21 @@ var collisionlayer;
 var tank;
 var cursors;
 var music;
+var bullet;
 var mainState = {
     // Here we add all the functions we need for our state
     // For this project we will just have 3 functions
     preload: function () {
-        // This function will be executed at the beginning
-        // That's where we load the game's assets
-
-
+    // This function will be executed at the beginning
+    // That's where we load the game's assets
     game.load.tilemap('map', 'level1.json', null, Phaser.Tilemap.TILED_JSON);  
-
     game.load.image('tiles', 'soup.png');
-
     game.load.image('block','block.png');
     game.load.audio('music','music.mp3');
-
     game.load.image('tank1','tank1.png');
-
     },
     create: function () { 
-    
-        // This function is called after the preload function
-    
+    // This function is called after the preload function
     game.stage.backgroundColor = '#787878';
     map = game.add.tilemap('map');
     music = game.add.audio('music');
@@ -47,25 +40,22 @@ var mainState = {
     tank.body.collideWorldBounds = true;     
     tank.body.drag.set(0);
     cursors = game.input.keyboard.createCursorKeys();
-
     },
     update: function () {
-        // This function is called 60 times per second
-        // It contains the game's logic
-        tank.body.velocity.x = 0;
-        tank.body.velocity.y = 0;
-        tank.body.angularVelocity = 0;
-
-        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+    // This function is called 60 times per second
+    // It contains the game's logic
+    tank.body.velocity.x = 0;
+    tank.body.velocity.y = 0;
+    tank.body.angularVelocity = 0;
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
             tank.body.angularVelocity = -200;
         }
-        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
             tank.body.angularVelocity = 200;
         }
-
-        if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
+    if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
         {
             game.physics.arcade.velocityFromAngle(tank.angle, 300, tank.body.velocity);
         }
