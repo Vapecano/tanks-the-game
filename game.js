@@ -5,7 +5,7 @@ var map;
 var tilelayer;
 var tilelayer2;
 var collisionlayer;
-var block;
+var tank;
 var cursors;
 var music;
 var mainState = {
