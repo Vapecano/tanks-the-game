@@ -41,39 +41,35 @@ var mainState = {
     collisionlayer = map.createLayer('collisionLayer');
     map.setCollisionBetween(204, 204, true, 'collisionLayer');
     collisionlayer.resizeWorld();
-    block = game.add.sprite(300,300,'tank1');
-    block.anchor.set(0.5,0.5);
-         
-    game.physics.arcade.enable(block);
-
-    block.body.collideWorldBounds = true;     
-    cursors = game.input.keyboard.createCursorKeys();
-
-    block.body.drag.set(0);
+    tank = game.add.sprite(300,300,'tank1');
+    tank.anchor.set(0.5,0.5);
+    game.physics.arcade.enable(tank);
+    tank.body.collideWorldBounds = true;     
+    tank.body.drag.set(0);
     cursors = game.input.keyboard.createCursorKeys();
 
     },
     update: function () {
         // This function is called 60 times per second
         // It contains the game's logic
-        block.body.velocity.x = 0;
-        block.body.velocity.y = 0;
-        block.body.angularVelocity = 0;
+        tank.body.velocity.x = 0;
+        tank.body.velocity.y = 0;
+        tank.body.angularVelocity = 0;
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
-            block.body.angularVelocity = -200;
+            tank.body.angularVelocity = -200;
         }
         else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-            block.body.angularVelocity = 200;
+            tank.body.angularVelocity = 200;
         }
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
         {
-            game.physics.arcade.velocityFromAngle(block.angle, 300, block.body.velocity);
+            game.physics.arcade.velocityFromAngle(tank.angle, 300, tank.body.velocity);
         }
-        game.physics.arcade.collide(block, collisionlayer);
+        game.physics.arcade.collide(tank, collisionlayer);
     }
 };
 
