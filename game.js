@@ -69,7 +69,7 @@ var mainState = {
     bullets.physicsBodyType = Phaser.Physics.ARCADE;
     for (var i=0; i< 100; i++)
     {
-        var bullet = bullets.create(0,0,'bullet');
+        var bullet = bullets.create(0,0,'block');
         bullet.anchor.set(0.5,0.5);
         game.physics.arcade.enable(bullet);
         bullet.body.immovable = true;
@@ -130,7 +130,7 @@ var mainState = {
             bullet = bullets.getFirstExists(false);
             if (bullet)
             {
-                bullet.reset(tank.x-game.cache.getImage('bullet').width/2, tank.y-game.cache.getImage('bullet').height/2);
+                bullet.reset(tank.x-game.cache.getImage('block').width/2, tank.y-game.cache.getImage('block').height/2);
                 //bullet.body.velocity.y = -500;
                 game.physics.arcade.velocityFromAngle(tank.angle, 900, bullet.body.velocity);
                 lastBulletShotAt = game.time.now + 300;
