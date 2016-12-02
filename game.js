@@ -132,7 +132,7 @@ var mainState = {
             {
                 bullet.reset(tank.x-game.cache.getImage('bullet').width/2, tank.y-game.cache.getImage('bullet').height/2);
                 //bullet.body.velocity.y = -500;
-                game.physics.arcade.velocityFromAngle(tank.angle, 300, bullet.body.velocity);
+                game.physics.arcade.velocityFromAngle(tank.angle, 900, bullet.body.velocity);
                 lastBulletShotAt = game.time.now + 300;
             }
         }
