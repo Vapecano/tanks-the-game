@@ -43,8 +43,8 @@ var mainState = {
     collisionlayer.resizeWorld();
     
     tank = game.add.sprite(300,300,'tank1');
-    tank.height = 36
-    tank.width = 60
+    //tank.height = 36
+    //tank.width = 60
     tank.anchor.set(0.5,0.5);
     game.physics.arcade.enable(tank);
     tank.body.collideWorldBounds = true;     
@@ -53,8 +53,8 @@ var mainState = {
     
     dummy = game.add.sprite(200,200,'tank1');
     dummy.anchor.set(0.5,0.5);
-    dummy.height = 36
-    dummy.width = 60
+    //dummy.height = 36
+    //dummy.width = 60
     game.physics.arcade.enable(dummy);
     dummy.body.collideWorldBounds = true;     
     dummy.body.drag.set(0);
