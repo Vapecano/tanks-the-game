@@ -10,7 +10,7 @@ var cursors;
 var music;
 var bullets;
 var dummy;
-var health;
+var health = 5;
 var lastBulletShotAt = 0;
 var mainState = {
     // Here we add all the functions we need for our state
@@ -82,14 +82,16 @@ var mainState = {
         bullet.checkWorldBounds = true;
         bullet.events.onOutOfBounds.add(this.resetBullet, this);
     }
-    health = game.add.sprite()    
+    //health = game.add.sprite()    
     cursors = game.input.keyboard.createCursorKeys();
+    healthnumber=game.add.text(game.world.centerX, game.world.centerY, health, { font: "65px Arial", fill: "#ffff00", align: "center" });
+ 
     },
     update: function () {
     // This function is called 60 times per second
     // It contains the game's logic
-    game.physics.arcade.collide(tank, dummy, this.bump, null, this);
-    game.physics.arcade.overlap(bullets, dummy, this.bump2, null, this);
+    //game.physics.arcade.collide(tank, dummy, this.bump, null, this);
+    game.physics.arcade.overlap(bullets, dummy, this.healthbar, null, this);
         
     tank.body.velocity.x = 0;
     tank.body.velocity.y = 0;
@@ -118,13 +120,13 @@ var mainState = {
         game.physics.arcade.collide(tank, collisionlayer);
     
     },
-    bump: function(tank, dummy){
-        console.log("test");
-    },
-    bump2: function(dummy, bullet){
-        console.log("test2");
-        bullet.kill();
-    },
+   // bump: function(tank, dummy){
+        //console.log("test");
+  //  },
+   // bump2: function(dummy, bullet){
+     //   console.log("test2");
+       // bullet.kill();
+    //},
     resetBullet: function(bullet){
         bullet.kill();
     },
@@ -140,6 +142,11 @@ var mainState = {
                 lastBulletShotAt = game.time.now + 300;
             }
         }
+    },
+    healthbar: function(healthnumber){
+        health-=1;
+        healthnumber.settText = health;
+        console.log("test");
     }
    
 };
