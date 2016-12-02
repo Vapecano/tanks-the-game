@@ -23,6 +23,7 @@ var mainState = {
     game.load.image('block','block.png');
     game.load.audio('music','music.mp3');
     game.load.image('tank1','tank1.png');
+    game.load.image('bullet','bullet.png');
     },
     create: function () { 
     // This function is called after the preload function
@@ -68,7 +69,7 @@ var mainState = {
     bullets.physicsBodyType = Phaser.Physics.ARCADE;
     for (var i=0; i< 100; i++)
     {
-        var bullet = bullets.create(0,0,'block');
+        var bullet = bullets.create(0,0,'bullet');
         bullet.anchor.set(0.5,0.5);
         game.physics.arcade.enable(bullet);
         bullet.body.immovable = true;
@@ -129,7 +130,7 @@ var mainState = {
             bullet = bullets.getFirstExists(false);
             if (bullet)
             {
-                bullet.reset(tank.x-game.cache.getImage('block').width/2, tank.y-game.cache.getImage('block').height/2);
+                bullet.reset(tank.x-game.cache.getImage('bullet').width/2, tank.y-game.cache.getImage('bullet').height/2);
                 //bullet.body.velocity.y = -500;
                 game.physics.arcade.velocityFromAngle(tank.angle, 300, bullet.body.velocity);
                 lastBulletShotAt = game.time.now + 300;
