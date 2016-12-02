@@ -24,6 +24,7 @@ var mainState = {
     game.load.audio('music','music.mp3');
     game.load.image('tank1','tank1.png');
     game.load.image('bullet','bullet.png');
+    game.load.image('block2','block2.png');
     },
     create: function () { 
     // This function is called after the preload function
@@ -82,7 +83,11 @@ var mainState = {
         bullet.checkWorldBounds = true;
         bullet.events.onOutOfBounds.add(this.resetBullet, this);
     }
-    health = game.add.sprite()    
+    
+    health = game.add.sprite(100,100,'block2')
+    health.anchor.set(0.5,0.5);
+    health.width = 2
+    
     cursors = game.input.keyboard.createCursorKeys();
     },
     update: function () {
