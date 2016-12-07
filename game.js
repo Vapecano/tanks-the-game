@@ -113,7 +113,7 @@ var mainState = {
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
         {
-            game.physics.arcade.velocityFromAngle(tank.angle, -300, tank.body.velocity);
+            game.physics.arcade.velocityFromAngle(tank.angle, -400, tank.body.velocity);
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
         {
@@ -140,12 +140,12 @@ var mainState = {
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.S))
         {
-            game.physics.arcade.velocityFromAngle(dummy.angle, -300, dummy.body.velocity);
+            game.physics.arcade.velocityFromAngle(dummy.angle, -400, dummy.body.velocity);
         }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
+    if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
         {
             
-            this.fire();
+            this.fire2();
         }
         game.physics.arcade.collide(dummy, collisionlayer);
     },
@@ -171,8 +171,20 @@ var mainState = {
                 lastBulletShotAt = game.time.now + 300;
             }
         }
+    },
+   fire2: function(){
+        if (game.time.now > lastBulletShotAt)
+        {
+            bullet = bullets.getFirstExists(false);
+            if (bullet)
+            {
+                bullet.reset(dummy.x-game.cache.getImage('block').width/2, dummy.y-game.cache.getImage('block').height/2);
+                //bullet.body.velocity.y = -500;
+                game.physics.arcade.velocityFromAngle(dummy.angle, 900, bullet.body.velocity);
+                lastBulletShotAt = game.time.now + 300;
+            }
+        }
     }
-   
 };
 
 // Initialize Phaser
