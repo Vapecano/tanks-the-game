@@ -101,11 +101,11 @@ var mainState = {
     tank.body.angularVelocity = 0;
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
-            tank.body.angularVelocity = -200;
+            tank.body.angularVelocity = -100;
         }
     else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-            tank.body.angularVelocity = 200;
+            tank.body.angularVelocity = 100;
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
         {
@@ -113,7 +113,7 @@ var mainState = {
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
         {
-            game.physics.arcade.velocityFromAngle(tank.angle, -400, tank.body.velocity);
+            game.physics.arcade.velocityFromAngle(tank.angle, -200, tank.body.velocity);
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
         {
@@ -128,11 +128,11 @@ var mainState = {
     dummy.body.angularVelocity = 0;
     if (game.input.keyboard.isDown(Phaser.Keyboard.A))
         {
-            dummy.body.angularVelocity = -200;
+            dummy.body.angularVelocity = -100;
         }
     else if (game.input.keyboard.isDown(Phaser.Keyboard.D))
         {
-            dummy.body.angularVelocity = 200;
+            dummy.body.angularVelocity = 100;
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.W))
         {
@@ -140,7 +140,7 @@ var mainState = {
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.S))
         {
-            game.physics.arcade.velocityFromAngle(dummy.angle, -400, dummy.body.velocity);
+            game.physics.arcade.velocityFromAngle(dummy.angle, -200, dummy.body.velocity);
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
         {
