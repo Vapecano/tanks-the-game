@@ -12,6 +12,7 @@ var bullets;
 var dummy;
 var health;
 var lastBulletShotAt = 0;
+var lastBulletShotAt2 = 0;
 var mainState = {
     // Here we add all the functions we need for our state
     // For this project we will just have 3 functions
@@ -84,6 +85,20 @@ var mainState = {
         bullet.events.onOutOfBounds.add(this.resetBullet, this);
     }
     
+    bullets2 = game.add.group();
+    bullets2.enableBody=true;
+    bullets2.physicsBodyType = Phaser.Physics.ARCADE;
+    for (var a=0; a< 100; a++)
+    {
+        var bullet2 = bullets2.create(0,0,'block');
+        bullet2.anchor.set(0.5,0.5);
+        game.physics.arcade.enable(bullet);
+        bullet2.body.immovable = true;
+        bullet2.exists = false;
+        bullet2.visible = false;
+        bullet2.checkWorldBounds = true;
+        bullet2.events.onOutOfBounds.add(this.resetBullet, this);
+    }
     health = game.add.sprite(100,100,'block2')
     health.anchor.set(0.5,0.5);
     health.width = 2
@@ -117,7 +132,6 @@ var mainState = {
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
         {
-            
             this.fire();
         }
         game.physics.arcade.collide(tank, collisionlayer);
@@ -144,7 +158,6 @@ var mainState = {
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
         {
-            
             this.fire2();
         }
         game.physics.arcade.collide(dummy, collisionlayer);
@@ -173,15 +186,15 @@ var mainState = {
         }
     },
    fire2: function(){
-        if (game.time.now > lastBulletShotAt)
+        if (game.time.now > lastBulletShotAt2)
         {
-            bullet = bullets.getFirstExists(false);
-            if (bullet)
+            bullet2 = bullets2.getFirstExists(false);
+            if (bullet2)
             {
-                bullet.reset(dummy.x-game.cache.getImage('block').width/2, dummy.y-game.cache.getImage('block').height/2);
+                bullet2.reset(dummy.x-game.cache.getImage('block').width/2, dummy.y-game.cache.getImage('block').height/2);
                 //bullet.body.velocity.y = -500;
-                game.physics.arcade.velocityFromAngle(dummy.angle, 900, bullet.body.velocity);
-                lastBulletShotAt = game.time.now + 300;
+                game.physics.arcade.velocityFromAngle(dummy.angle, 900, bullet2.body.velocity);
+                lastBulletShotAt2 = game.time.now + 300;
             }
         }
     }
