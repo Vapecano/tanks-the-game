@@ -9,11 +9,12 @@ var tank;
 var cursors;
 var music;
 var bullets;
-var dummy;
-var health1;
 var tankhealth1;
 var tankhealth2;
 var tankhealth3;
+var health1 = [];
+var health2 = [];
+var maxHealth = 3;
 var lastBulletShotAt = 0;
 var lastBulletShotAt2 = 0;
 var mainState = {
@@ -101,10 +102,18 @@ var mainState = {
         bullet2.events.onOutOfBounds.add(this.resetBullet, this);
     }
   
-    tankhealth1 = game.add.sprite(20,20,'health');
-    tankhealth2 = game.add.sprite(50,20,'health');
-    tankhealth3 = game.add.sprite(80,20,'health');
+    for(var h = 0; h < maxHealth; h++)
+    {
+        var health = game.add.sprite(20 + (h * 30),20,'health');
+        health1.push(health);
+    }
     
+    for(var k = 0; k < maxHealth; k++)
+    {
+        var health3 = game.add.sprite(530 + (k * 30),20,'health');
+        health2.push(health3);
+    }
+        
     cursors = game.input.keyboard.createCursorKeys();
     },
     update: function () {
@@ -112,6 +121,7 @@ var mainState = {
     // It contains the game's logic
     game.physics.arcade.collide(tank, dummy, this.bump, null, this);
     game.physics.arcade.overlap(bullets, dummy, this.bump2, null, this);
+    game.physics.arcade.overlap(bullets2, tank, this.bump3, null, this);
     //Player 1 Movement    
     tank.body.velocity.x = 0;
     tank.body.velocity.y = 0;
@@ -170,6 +180,26 @@ var mainState = {
     bump2: function(dummy, bullet){
         console.log("test2");
         bullet.kill();
+        
+        var health = health1.pop();
+        health.kill();
+        
+        if(health1.length == 0)
+            {
+                // Kill Player 1, Player 2 has Won
+            }
+    },
+     bump3: function(tank, bullet2){
+        console.log("test3");
+        bullet2.kill();
+        
+        var health = health2.pop();
+        health.kill();
+        
+        if(health2.length == 0)
+            {
+                // Kill Player 1, Player 2 has Won
+            }
     },
     resetBullet: function(bullet){
         bullet.kill();
