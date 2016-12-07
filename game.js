@@ -10,7 +10,10 @@ var cursors;
 var music;
 var bullets;
 var dummy;
-var health;
+var health1;
+var tankhealth1;
+var tankhealth2;
+var tankhealth3;
 var lastBulletShotAt = 0;
 var lastBulletShotAt2 = 0;
 var mainState = {
@@ -26,7 +29,9 @@ var mainState = {
     game.load.image('tank1','tank1.png');
     game.load.image('bullet','bullet.png');
     game.load.image('block2','block2.png');
+    game.load.image('health','heart.png');
     },
+    
     create: function () { 
     // This function is called after the preload function
     game.stage.backgroundColor = '#787878';
@@ -45,8 +50,6 @@ var mainState = {
     collisionlayer.resizeWorld();
     
     tank = game.add.sprite(300,300,'tank1');
-    //tank.height = 36
-    //tank.width = 60
     tank.anchor.set(0.5,0.5);
     game.physics.arcade.enable(tank);
     tank.body.collideWorldBounds = true;     
@@ -55,8 +58,6 @@ var mainState = {
     
     dummy = game.add.sprite(200,200,'tank1');
     dummy.anchor.set(0.5,0.5);
-    //dummy.height = 36
-    //dummy.width = 60
     game.physics.arcade.enable(dummy);
     dummy.body.collideWorldBounds = true;     
     dummy.body.drag.set(0);
@@ -99,9 +100,10 @@ var mainState = {
         bullet2.checkWorldBounds = true;
         bullet2.events.onOutOfBounds.add(this.resetBullet, this);
     }
-    health = game.add.sprite(100,100,'block2')
-    health.anchor.set(0.5,0.5);
-    health.width = 2
+  
+    tankhealth1 = game.add.sprite(20,20,'health');
+    tankhealth2 = game.add.sprite(50,20,'health');
+    tankhealth3 = game.add.sprite(80,20,'health');
     
     cursors = game.input.keyboard.createCursorKeys();
     },
