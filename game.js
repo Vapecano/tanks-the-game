@@ -118,21 +118,21 @@ var mainState = {
     tank.body.angularVelocity = 0;
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
-            tank.body.angularVelocity = -100;
+            tank.body.angularVelocity = -200;
         }
     else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-            tank.body.angularVelocity = 100;
+            tank.body.angularVelocity = 200;
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
         {
-            game.physics.arcade.velocityFromAngle(tank.angle, 300, tank.body.velocity);
+            game.physics.arcade.velocityFromAngle(tank.angle, 200, tank.body.velocity);
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
         {
-            game.physics.arcade.velocityFromAngle(tank.angle, -200, tank.body.velocity);
+            game.physics.arcade.velocityFromAngle(tank.angle, -150, tank.body.velocity);
         }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
+    if (game.input.keyboard.isDown(Phaser.Keyboard.ALT))
         {
             this.fire();
         }
@@ -144,19 +144,19 @@ var mainState = {
     dummy.body.angularVelocity = 0;
     if (game.input.keyboard.isDown(Phaser.Keyboard.A))
         {
-            dummy.body.angularVelocity = -100;
+            dummy.body.angularVelocity = -200;
         }
     else if (game.input.keyboard.isDown(Phaser.Keyboard.D))
         {
-            dummy.body.angularVelocity = 100;
+            dummy.body.angularVelocity = 200;
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.W))
         {
-            game.physics.arcade.velocityFromAngle(dummy.angle, 300, dummy.body.velocity);
+            game.physics.arcade.velocityFromAngle(dummy.angle, 200, dummy.body.velocity);
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.S))
         {
-            game.physics.arcade.velocityFromAngle(dummy.angle, -200, dummy.body.velocity);
+            game.physics.arcade.velocityFromAngle(dummy.angle, -150, dummy.body.velocity);
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
         {
