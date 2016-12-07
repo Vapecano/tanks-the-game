@@ -95,7 +95,7 @@ var mainState = {
     // It contains the game's logic
     game.physics.arcade.collide(tank, dummy, this.bump, null, this);
     game.physics.arcade.overlap(bullets, dummy, this.bump2, null, this);
-        
+    //Player 1 Movement    
     tank.body.velocity.x = 0;
     tank.body.velocity.y = 0;
     tank.body.angularVelocity = 0;
@@ -122,6 +122,32 @@ var mainState = {
         }
         game.physics.arcade.collide(tank, collisionlayer);
     
+    // Player 2 Movement
+    dummy.body.velocity.x = 0;
+    dummy.body.velocity.y = 0;
+    dummy.body.angularVelocity = 0;
+    if (game.input.keyboard.isDown(Phaser.Keyboard.A))
+        {
+            dummy.body.angularVelocity = -200;
+        }
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.D))
+        {
+            dummy.body.angularVelocity = 200;
+        }
+    if (game.input.keyboard.isDown(Phaser.Keyboard.W))
+        {
+            game.physics.arcade.velocityFromAngle(dummy.angle, 300, dummy.body.velocity);
+        }
+    if (game.input.keyboard.isDown(Phaser.Keyboard.S))
+        {
+            game.physics.arcade.velocityFromAngle(dummy.angle, -300, dummy.body.velocity);
+        }
+    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
+        {
+            
+            this.fire();
+        }
+        game.physics.arcade.collide(dummy, collisionlayer);
     },
     bump: function(tank, dummy){
         console.log("test");
