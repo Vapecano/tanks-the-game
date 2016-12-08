@@ -1,3 +1,12 @@
-body {
-    background-color: lightblue;
+@font-face  {
+    
+    font-family: 'kongtext';
+    src: url('kongtext.woff');
+    
+    
+    
+    
+}
+tootle {
+    font-family: "kongtext";
 }
