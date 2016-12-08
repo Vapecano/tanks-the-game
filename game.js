@@ -9,8 +9,12 @@ var tank;
 var cursors;
 var music;
 var bullets;
-var dummy;
-var health;
+var tankhealth1;
+var tankhealth2;
+var tankhealth3;
+var health1 = [];
+var health2 = [];
+var maxHealth = 3;
 var lastBulletShotAt = 0;
 var lastBulletShotAt2 = 0;
 var mainState = {
@@ -26,7 +30,9 @@ var mainState = {
     game.load.image('tank1','tank1.png');
     game.load.image('bullet','bullet.png');
     game.load.image('block2','block2.png');
+    game.load.image('health','heart.png');
     },
+    
     create: function () { 
     // This function is called after the preload function
     game.stage.backgroundColor = '#787878';
@@ -45,8 +51,6 @@ var mainState = {
     collisionlayer.resizeWorld();
     
     tank = game.add.sprite(300,300,'tank1');
-    //tank.height = 36
-    //tank.width = 60
     tank.anchor.set(0.5,0.5);
     game.physics.arcade.enable(tank);
     tank.body.collideWorldBounds = true;     
@@ -55,8 +59,6 @@ var mainState = {
     
     dummy = game.add.sprite(200,200,'tank1');
     dummy.anchor.set(0.5,0.5);
-    //dummy.height = 36
-    //dummy.width = 60
     game.physics.arcade.enable(dummy);
     dummy.body.collideWorldBounds = true;     
     dummy.body.drag.set(0);
@@ -99,10 +101,19 @@ var mainState = {
         bullet2.checkWorldBounds = true;
         bullet2.events.onOutOfBounds.add(this.resetBullet, this);
     }
-    health = game.add.sprite(100,100,'block2')
-    health.anchor.set(0.5,0.5);
-    health.width = 2
+  
+    for(var h = 0; h < maxHealth; h++)
+    {
+        var health = game.add.sprite(20 + (h * 30),20,'health');
+        health1.push(health);
+    }
     
+    for(var k = 0; k < maxHealth; k++)
+    {
+        var health3 = game.add.sprite(530 + (k * 30),20,'health');
+        health2.push(health3);
+    }
+        
     cursors = game.input.keyboard.createCursorKeys();
     },
     update: function () {
@@ -110,27 +121,28 @@ var mainState = {
     // It contains the game's logic
     game.physics.arcade.collide(tank, dummy, this.bump, null, this);
     game.physics.arcade.overlap(bullets, dummy, this.bump2, null, this);
+    game.physics.arcade.overlap(bullets2, tank, this.bump3, null, this);
     //Player 1 Movement    
     tank.body.velocity.x = 0;
     tank.body.velocity.y = 0;
     tank.body.angularVelocity = 0;
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
         {
-            tank.body.angularVelocity = -100;
+            tank.body.angularVelocity = -200;
         }
     else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
         {
-            tank.body.angularVelocity = 100;
+            tank.body.angularVelocity = 200;
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
         {
-            game.physics.arcade.velocityFromAngle(tank.angle, 300, tank.body.velocity);
+            game.physics.arcade.velocityFromAngle(tank.angle, 200, tank.body.velocity);
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
         {
-            game.physics.arcade.velocityFromAngle(tank.angle, -200, tank.body.velocity);
+            game.physics.arcade.velocityFromAngle(tank.angle, -150, tank.body.velocity);
         }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
+    if (game.input.keyboard.isDown(Phaser.Keyboard.ALT))
         {
             this.fire();
         }
@@ -142,19 +154,19 @@ var mainState = {
     dummy.body.angularVelocity = 0;
     if (game.input.keyboard.isDown(Phaser.Keyboard.A))
         {
-            dummy.body.angularVelocity = -100;
+            dummy.body.angularVelocity = -200;
         }
     else if (game.input.keyboard.isDown(Phaser.Keyboard.D))
         {
-            dummy.body.angularVelocity = 100;
+            dummy.body.angularVelocity = 200;
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.W))
         {
-            game.physics.arcade.velocityFromAngle(dummy.angle, 300, dummy.body.velocity);
+            game.physics.arcade.velocityFromAngle(dummy.angle, 200, dummy.body.velocity);
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.S))
         {
-            game.physics.arcade.velocityFromAngle(dummy.angle, -200, dummy.body.velocity);
+            game.physics.arcade.velocityFromAngle(dummy.angle, -150, dummy.body.velocity);
         }
     if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
         {
@@ -168,6 +180,26 @@ var mainState = {
     bump2: function(dummy, bullet){
         console.log("test2");
         bullet.kill();
+        
+        var health = health1.pop();
+        health.kill();
+        
+        if(health1.length == 0)
+            {
+                // Kill Player 1, Player 2 has Won
+            }
+    },
+     bump3: function(tank, bullet2){
+        console.log("test3");
+        bullet2.kill();
+        
+        var health = health2.pop();
+        health.kill();
+        
+        if(health2.length == 0)
+            {
+                // Kill Player 1, Player 2 has Won
+            }
     },
     resetBullet: function(bullet){
         bullet.kill();
