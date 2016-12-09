@@ -18,6 +18,7 @@ var lastBulletShotAt = 0;
 var lastBulletShotAt2 = 0;
 var tankWins;
 var dummyWins;
+var boom;
 var mainState = {
     // Here we add all the functions we need for our state
     // For this project we will just have 3 functions
@@ -32,7 +33,7 @@ var mainState = {
     game.load.image('bullet','bullet.png');
     game.load.image('block2','block2.png');
     game.load.image('health','heart.png');
-    game.load.spritesheet('explosion', 'explosion.png', 64, 64, 23);
+    game.load.spritesheet('boom', 'explosion.png', 64, 64, 23);
     },
     
     create: function () { 
@@ -111,7 +112,10 @@ var mainState = {
         var health3 = game.add.sprite(530 + (k * 30),20,'health');
         health2.push(health3);
     }
-        
+    
+    
+    
+    
     cursors = game.input.keyboard.createCursorKeys();
     },
     
@@ -186,6 +190,11 @@ var mainState = {
         if(health1.length == 0)
             {
                 // Kill Player 1, Player 2 has Won
+                boom = game.add.sprite (dummy.x,dummy.y, 'kaboom',0);
+                boom.anchor.set(0.5, 0.5);
+                var boomAnime = boom.animations.add('boom');
+                boomAnime.animations.play('boom',7,false);
+                dummyWins.visible = true;
                 tankWins.visible = true;
                 game.paused = true;
             }
@@ -200,6 +209,10 @@ var mainState = {
         if(health2.length == 0)
             {
                 // Kill Player 1, Player 2 has Won
+                boom = game.add.sprite (tank.x,tank.y, 'kaboom',0);
+                boom.anchor.set(0.5, 0.5);
+                var boomAnime = boom.animations.add('boom');
+                boomAnime.animations.play('boom',7,false);
                 dummyWins.visible = true;
                 game.paused = true;
             }
