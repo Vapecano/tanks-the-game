@@ -32,6 +32,7 @@ var mainState = {
     game.load.image('bullet','bullet.png');
     game.load.image('block2','block2.png');
     game.load.image('health','heart.png');
+    game.load.spritesheet('explosion', 'explosion.png', 64, 64, 23);
     },
     
     create: function () { 
