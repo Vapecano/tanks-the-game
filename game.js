@@ -13,6 +13,9 @@ var style = {font: '', fill:''};
 var bullets;
 var health1 = [];
 var health2 = [];
+var ammo1 = [];
+var ammo2 = [];
+var maxammo = 5;
 var maxHealth = 3;
 var lastBulletShotAt = 0;
 var lastBulletShotAt2 = 0;
@@ -34,6 +37,7 @@ var mainState = {
     game.load.image('block2','block2.png');
     game.load.image('health','heart.png');
     game.load.spritesheet('kaboom', 'explosion.png', 64, 64, 23);
+    game.load.image('ammo', 'bulletbill.png');
     },
     
     create: function () { 
@@ -109,11 +113,13 @@ var mainState = {
     
     for(var k = 0; k < maxHealth; k++)
     {
-        var health3 = game.add.sprite(530 + (k * 30),20,'health');
+        var health3 = game.add.sprite(480 + (k * 30),20,'health');
         health2.push(health3);
     }
     
-    
+    this.refillammo1();
+        
+    this.refillammo2();
     
     
     cursors = game.input.keyboard.createCursorKeys();
@@ -252,6 +258,22 @@ var mainState = {
                 lastBulletShotAt2 = game.time.now + 300;
             }
         }
+    },
+    refillammo1: function ()
+    {
+      for(var h = 0; h < maxammo; h++)
+        {
+            var ammo = game.add.sprite(20 + (h * 30),50,'ammo');
+            ammo1.push(ammo);
+        }     
+    },
+    refillammo2: function ()
+    {
+      for(var h = 0; h < maxammo; h++)
+        {
+            var ammo = game.add.sprite(480 + (h * 30),50,'ammo');
+            ammo2.push(ammo);
+        }     
     }
 };
 
