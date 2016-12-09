@@ -33,7 +33,7 @@ var mainState = {
     game.load.image('bullet','bullet.png');
     game.load.image('block2','block2.png');
     game.load.image('health','heart.png');
-    game.load.spritesheet('boom', 'explosion.png', 64, 64, 23);
+    game.load.spritesheet('kaboom', 'explosion.png', 64, 64, 23);
     },
     
     create: function () { 
@@ -192,11 +192,11 @@ var mainState = {
                 // Kill Player 1, Player 2 has Won
                 boom = game.add.sprite (dummy.x,dummy.y, 'kaboom',0);
                 boom.anchor.set(0.5, 0.5);
-                var boomAnime = boom.animations.add('boom');
-                boomAnime.animations.play('boom',7,false);
-                dummyWins.visible = true;
+                boom.animations.add('kaboom');
+                boom.animations.play('kaboom',10,false);
                 tankWins.visible = true;
-                game.paused = true;
+                game.time.events.add(Phaser.Timer.SECOND * 5, this.pauseGame, this);
+                dummy.kill;
             }
     },
     bump3: function(tank, bullet2){
@@ -211,11 +211,16 @@ var mainState = {
                 // Kill Player 1, Player 2 has Won
                 boom = game.add.sprite (tank.x,tank.y, 'kaboom',0);
                 boom.anchor.set(0.5, 0.5);
-                var boomAnime = boom.animations.add('boom');
-                boomAnime.animations.play('boom',7,false);
+                boom.animations.add('kaboom');
+                boom.animations.play('kaboom',10,false);
                 dummyWins.visible = true;
-                game.paused = true;
+                game.time.events.add(Phaser.Timer.SECOND * 5, this.pauseGame, this);
+               
             }
+    },
+    pauseGame: function(){
+        boom.visible=false;
+        game.paused =true
     },
     resetBullet: function(bullet){
         bullet.kill();
