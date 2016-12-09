@@ -1,5 +1,6 @@
 /* Tanks Maybe */
 /*jslint sloppy:true, browser: true, devel: true, eqeq: true, vars: true, white: true*/
+// Variables
 var game;
 var map;
 var tilelayer;
@@ -8,15 +9,15 @@ var collisionlayer;
 var tank;
 var cursors;
 var music;
+var style = {font: '', fill:''};
 var bullets;
-var tankhealth1;
-var tankhealth2;
-var tankhealth3;
 var health1 = [];
 var health2 = [];
 var maxHealth = 3;
 var lastBulletShotAt = 0;
 var lastBulletShotAt2 = 0;
+var tankWins;
+var dummyWins;
 var mainState = {
     // Here we add all the functions we need for our state
     // For this project we will just have 3 functions
@@ -40,8 +41,6 @@ var mainState = {
     music = game.add.audio('music');
     music.loop = true;
     music.play();
-    
-    
     game.physics.startSystem(Phaser.Physics.ARCADE);
     
     map = game.add.tilemap('map');
@@ -55,24 +54,20 @@ var mainState = {
     tank = game.add.sprite(300,300,'tank1');
     tank.anchor.set(0.5,0.5);
     game.physics.arcade.enable(tank);
-    tank.body.collideWorldBounds = true;     
-    tank.body.drag.set(0);
-    
+    tank.body.collideWorldBounds = true;   tank.body.drag.set(0);
     
     dummy = game.add.sprite(200,200,'tank1');
     dummy.anchor.set(0.5,0.5);
     game.physics.arcade.enable(dummy);
-    dummy.body.collideWorldBounds = true;     
-    dummy.body.drag.set(0);
+    dummy.body.collideWorldBounds = true;   dummy.body.drag.set(0);
+
+    tankWins = game.add.text(game.world.centerX, 20, " Player 1 Wins!", style);
+    tankWins.anchor.set(0.5);
+    tankWins.visible = false;
     
-    //bullet=game.add.weapon(4,'block');
-    //bullet.anchor.set(0.5,0.5);
-    //game.physics.arcade.enable(bullet);
-    //bullet.body.drag.set(0);
-    //bullet.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-    //bullet.trackSprite(tank, 60, 0, true);
-    //bullet.bulletSpeed=500;
-    //bullet.fireRate= 250;
+    dummyWins = game.add.text(game.world.centerX, 20, " Player 2 Wins!", style);
+    dummyWins.anchor.set(0.5);
+    dummyWins.visible = false;
     
     bullets = game.add.group();
     bullets.enableBody=true;
@@ -118,7 +113,8 @@ var mainState = {
         
     cursors = game.input.keyboard.createCursorKeys();
     },
-    update: function () {
+    
+    update: function(){
     // This function is called 60 times per second
     // It contains the game's logic
     game.physics.arcade.collide(tank, dummy, this.bump, null, this);
@@ -189,9 +185,11 @@ var mainState = {
         if(health1.length == 0)
             {
                 // Kill Player 1, Player 2 has Won
+                tankWins.visible = true;
+                game.paused = true;
             }
     },
-     bump3: function(tank, bullet2){
+    bump3: function(tank, bullet2){
         console.log("test3");
         bullet2.kill();
         
@@ -201,12 +199,15 @@ var mainState = {
         if(health2.length == 0)
             {
                 // Kill Player 1, Player 2 has Won
+                dummyWins.visible = true;
+                game.paused = true;
             }
     },
     resetBullet: function(bullet){
         bullet.kill();
     },
-    fire: function(){
+    fire: function()
+    {
         if (game.time.now > lastBulletShotAt)
         {
             bullet = bullets.getFirstExists(false);
@@ -219,7 +220,8 @@ var mainState = {
             }
         }
     },
-   fire2: function(){
+   fire2: function()
+    {
         if (game.time.now > lastBulletShotAt2)
         {
             bullet2 = bullets2.getFirstExists(false);
