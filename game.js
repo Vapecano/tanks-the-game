@@ -26,7 +26,7 @@ var mainState = {
     game.load.tilemap('map', 'level1.json', null, Phaser.Tilemap.TILED_JSON);  
     game.load.image('tiles', 'soup.png');
     game.load.image('block','block.png');
-    game.load.audio('music','music.mp3');
+    game.load.audio('music','looperino.mp3');
     game.load.image('tank1','tank1.png');
     game.load.image('bullet','bullet.png');
     game.load.image('block2','block2.png');
