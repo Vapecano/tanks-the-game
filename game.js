@@ -38,7 +38,9 @@ var mainState = {
     game.stage.backgroundColor = '#787878';
    
     music = game.add.audio('music');
+    music.loop = true;
     music.play();
+    
     
     game.physics.startSystem(Phaser.Physics.ARCADE);
     
