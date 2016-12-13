@@ -120,22 +120,17 @@ var mainState = {
         health2.push(health3);
     }
     
-<<<<<<< HEAD
-    this.refillammo1();
-        
-    this.refillammo2();
-=======
         for(var a = 0; a < maxAmmo; a++)
     {
-        var ammo = game.add.sprite(20 + (a * 30),60,'health');
+        var ammo = game.add.sprite(20 + (a * 30),60,'ammo');
         ammo1.push(ammo);
     }
         for(var b = 0; b < maxAmmo; b++)
     {
-        var ammo3 = game.add.sprite(480 + (b * 30),60,'health');
+        var ammo3 = game.add.sprite(480 + (b * 30),60,'ammo');
         ammo2.push(ammo3);
     }
->>>>>>> origin/master
+
     
     
     cursors = game.input.keyboard.createCursorKeys();
@@ -286,22 +281,6 @@ var mainState = {
                 lastBulletShotAt2 = game.time.now + 300;
             }
         }
-    },
-    refillammo1: function ()
-    {
-      for(var h = 0; h < maxammo; h++)
-        {
-            var ammo = game.add.sprite(20 + (h * 30),50,'ammo');
-            ammo1.push(ammo);
-        }     
-    },
-    refillammo2: function ()
-    {
-      for(var h = 0; h < maxammo; h++)
-        {
-            var ammo = game.add.sprite(480 + (h * 30),50,'ammo');
-            ammo2.push(ammo);
-        }     
     }
 };
 
