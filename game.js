@@ -14,6 +14,9 @@ var bullets;
 var health1 = [];
 var health2 = [];
 var maxHealth = 3;
+var maxAmmo = 5;
+var ammo1 = [];
+var ammo2 = [];
 var lastBulletShotAt = 0;
 var lastBulletShotAt2 = 0;
 var tankWins;
@@ -113,7 +116,16 @@ var mainState = {
         health2.push(health3);
     }
     
-    
+        for(var a = 0; a < maxAmmo; a++)
+    {
+        var ammo = game.add.sprite(20 + (a * 30),60,'health');
+        ammo1.push(ammo);
+    }
+        for(var b = 0; b < maxAmmo; b++)
+    {
+        var ammo3 = game.add.sprite(480 + (b * 30),60,'health');
+        ammo2.push(ammo3);
+    }
     
     
     cursors = game.input.keyboard.createCursorKeys();
@@ -171,11 +183,20 @@ var mainState = {
         {
             game.physics.arcade.velocityFromAngle(dummy.angle, -150, dummy.body.velocity);
         }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
+    if (health2.length > 0)
         {
-            this.fire2();
+            if (ammo1.length > 0)
+            {
+                if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
+                    {
+                        this.fire2();
+                        var ammu = ammo1.pop();
+                        ammu.kill;
+                    }
+            }
         }
-        game.physics.arcade.collide(dummy, collisionlayer);
+    game.physics.arcade.collide(dummy, collisionlayer);
+    
     },
     bump: function(tank, dummy){
         console.log("test");
