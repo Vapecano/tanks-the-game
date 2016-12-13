@@ -190,8 +190,7 @@ var mainState = {
                 if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
                     {
                         this.fire2();
-                        var ammu = ammo1.pop();
-                        ammu.kill;
+                       
                     }
             }
         }
@@ -256,6 +255,8 @@ var mainState = {
                 bullet.reset(tank.x-game.cache.getImage('block').width/2, tank.y-game.cache.getImage('block').height/2);
                 //bullet.body.velocity.y = -500;
                 game.physics.arcade.velocityFromAngle(tank.angle, 900, bullet.body.velocity);
+                var ammu = ammo2.pop();
+                ammu.kill();
                 lastBulletShotAt = game.time.now + 300;
             }
         }
@@ -270,6 +271,8 @@ var mainState = {
                 bullet2.reset(dummy.x-game.cache.getImage('block').width/2, dummy.y-game.cache.getImage('block').height/2);
                 //bullet.body.velocity.y = -500;
                 game.physics.arcade.velocityFromAngle(dummy.angle, 900, bullet2.body.velocity);
+                var ammu = ammo1.pop();
+                ammu.kill();
                 lastBulletShotAt2 = game.time.now + 300;
             }
         }
