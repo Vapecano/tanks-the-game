@@ -26,32 +26,31 @@ var tankWins;
 var dummyWins;
 var boom;
 var mainState = {
-    // Here we add all the functions we need for our state
-    // For this project we will just have 3 functions
+    
     preload: function () {
-    // This function will be executed at the beginning
-    // That's where we load the game's assets
+    //Load Assets
     game.load.tilemap('map', 'level1.json', null, Phaser.Tilemap.TILED_JSON);  
     game.load.image('tiles', 'soup.png');
     game.load.image('block','block.png');
-    game.load.audio('music','looperino.mp3');
     game.load.image('tank1','tank1.png');
     game.load.image('bullet','bullet.png');
     game.load.image('block2','block2.png');
     game.load.image('health','heart.png');
-    game.load.spritesheet('kaboom', 'explosion.png', 64, 64, 23);
     game.load.image('ammo', 'bulletbill.png');
+    game.load.spritesheet('kaboom', 'explosion.png', 64, 64, 23);
+    game.load.audio('music','looperino.mp3');
     },
     
     create: function () { 
-    // This function is called after the preload function
     game.stage.backgroundColor = '#787878';
    
+    //Music
     music = game.add.audio('music');
     music.loop = true;
     music.play();
     game.physics.startSystem(Phaser.Physics.ARCADE);
     
+    //Load Map
     map = game.add.tilemap('map');
     map.addTilesetImage('soup', 'tiles');
     tilelayer = map.createLayer('Tile Layer 3');
@@ -60,24 +59,19 @@ var mainState = {
     map.setCollisionBetween(204, 204, true, 'collisionLayer');
     collisionlayer.resizeWorld();
     
+    //Spawn Tank
     tank = game.add.sprite(300,300,'tank1');
     tank.anchor.set(0.5,0.5);
     game.physics.arcade.enable(tank);
     tank.body.collideWorldBounds = true;   tank.body.drag.set(0);
     
+    //Spawn Dummy
     dummy = game.add.sprite(200,200,'tank1');
     dummy.anchor.set(0.5,0.5);
     game.physics.arcade.enable(dummy);
     dummy.body.collideWorldBounds = true;   dummy.body.drag.set(0);
 
-    tankWins = game.add.text(game.world.centerX, 20, " Player 1 Wins!", style);
-    tankWins.anchor.set(0.5);
-    tankWins.visible = false;
-    
-    dummyWins = game.add.text(game.world.centerX, 20, " Player 2 Wins!", style);
-    dummyWins.anchor.set(0.5);
-    dummyWins.visible = false;
-    
+    //Spawn invisble bullets
     bullets = game.add.group();
     bullets.enableBody=true;
     bullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -107,7 +101,18 @@ var mainState = {
         bullet2.checkWorldBounds = true;
         bullet2.events.onOutOfBounds.add(this.resetBullet, this);
     }
-  
+    
+    //Win Tank
+    tankWins = game.add.text(game.world.centerX, 20, " Player 1 Wins!", style);
+    tankWins.anchor.set(0.5);
+    tankWins.visible = false;
+    
+    dummyWins = game.add.text(game.world.centerX, 20, " Player 2 Wins!", style);
+    dummyWins.anchor.set(0.5);
+    dummyWins.visible = false;
+    
+    
+    //Tank Health
     for(var h = 0; h < maxHealth; h++)
     {
         var health = game.add.sprite(20 + (h * 30),20,'health');
@@ -132,16 +137,16 @@ var mainState = {
     }
 
     
-    
+    //Create Keys
     cursors = game.input.keyboard.createCursorKeys();
     },
     
     update: function(){
-    // This function is called 60 times per second
-    // It contains the game's logic
+    //Collisions
     game.physics.arcade.collide(tank, dummy, this.bump, null, this);
     game.physics.arcade.overlap(bullets, dummy, this.bump2, null, this);
     game.physics.arcade.overlap(bullets2, tank, this.bump3, null, this);
+    
     //Player 1 Movement    
     tank.body.velocity.x = 0;
     tank.body.velocity.y = 0;
