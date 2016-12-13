@@ -17,9 +17,6 @@ var ammo1 = [];
 var ammo2 = [];
 var maxammo = 5;
 var maxHealth = 3;
-var maxAmmo = 5;
-var ammo1 = [];
-var ammo2 = [];
 var lastBulletShotAt = 0;
 var lastBulletShotAt2 = 0;
 var tankWins;
@@ -120,22 +117,9 @@ var mainState = {
         health2.push(health3);
     }
     
-<<<<<<< HEAD
     this.refillammo1();
         
     this.refillammo2();
-=======
-        for(var a = 0; a < maxAmmo; a++)
-    {
-        var ammo = game.add.sprite(20 + (a * 30),60,'health');
-        ammo1.push(ammo);
-    }
-        for(var b = 0; b < maxAmmo; b++)
-    {
-        var ammo3 = game.add.sprite(480 + (b * 30),60,'health');
-        ammo2.push(ammo3);
-    }
->>>>>>> origin/master
     
     
     cursors = game.input.keyboard.createCursorKeys();
@@ -193,19 +177,11 @@ var mainState = {
         {
             game.physics.arcade.velocityFromAngle(dummy.angle, -150, dummy.body.velocity);
         }
-    if (health2.length > 0)
+    if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
         {
-            if (ammo1.length > 0)
-            {
-                if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
-                    {
-                        this.fire2();
-                       
-                    }
-            }
+            this.fire2();
         }
-    game.physics.arcade.collide(dummy, collisionlayer);
-    
+        game.physics.arcade.collide(dummy, collisionlayer);
     },
     bump: function(tank, dummy){
         console.log("test");
@@ -265,8 +241,6 @@ var mainState = {
                 bullet.reset(tank.x-game.cache.getImage('block').width/2, tank.y-game.cache.getImage('block').height/2);
                 //bullet.body.velocity.y = -500;
                 game.physics.arcade.velocityFromAngle(tank.angle, 900, bullet.body.velocity);
-                var ammu = ammo2.pop();
-                ammu.kill();
                 lastBulletShotAt = game.time.now + 300;
             }
         }
@@ -281,8 +255,6 @@ var mainState = {
                 bullet2.reset(dummy.x-game.cache.getImage('block').width/2, dummy.y-game.cache.getImage('block').height/2);
                 //bullet.body.velocity.y = -500;
                 game.physics.arcade.velocityFromAngle(dummy.angle, 900, bullet2.body.velocity);
-                var ammu = ammo1.pop();
-                ammu.kill();
                 lastBulletShotAt2 = game.time.now + 300;
             }
         }
