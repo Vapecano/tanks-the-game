@@ -25,7 +25,7 @@ var lastBulletShotAt2 = 0;
 var tankWins;
 var dummyWins;
 var boom;
-var refillTime = 2;
+var refillTime = 3;
 var control;
 var mainState = {
     
@@ -53,6 +53,7 @@ var mainState = {
     music = game.add.audio('music');
     music.loop = true;
     music.play();
+    
     game.physics.startSystem(Phaser.Physics.ARCADE);
     
     //Load Map
@@ -114,7 +115,7 @@ var mainState = {
     //Win Tank
     tankWins = game.add.text(game.world.centerX, 20, " Player 2 Wins!", style);
     tankWins.anchor.set(0.5);
-    tankWins.visible = false;
+    tankWins.visible = false;   
     
     dummyWins = game.add.text(game.world.centerX, 20, " Player 1 Wins!", style);
     dummyWins.anchor.set(0.5);
@@ -150,7 +151,6 @@ var mainState = {
     
     update: function(){
     //Collisions
-    game.physics.arcade.collide(tank, dummy, this.bump, null, this);
     game.physics.arcade.overlap(bullets, dummy, this.bump2, null, this);
     game.physics.arcade.overlap(bullets2, tank, this.bump3, null, this);
         
@@ -246,7 +246,7 @@ var mainState = {
                 boom.animations.add('kaboom');
                 boom.animations.play('kaboom',10,false);
                 tankWins.visible = true;
-                dummy.kill;
+                dummy.kill();
             }
     },
     bump3: function(tank, bullet2){
@@ -265,6 +265,7 @@ var mainState = {
                 boom.animations.add('kaboom');
                 boom.animations.play('kaboom',10,false);
                 dummyWins.visible = true;
+                tank.kill();
             }
     },
     resetBullet: function(bullet){
