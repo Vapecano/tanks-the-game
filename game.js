@@ -104,11 +104,11 @@ var mainState = {
     }
     
     //Win Tank
-    tankWins = game.add.text(game.world.centerX, 20, " Player 1 Wins!", style);
+    tankWins = game.add.text(game.world.centerX, 20, " Player 2 Wins!", style);
     tankWins.anchor.set(0.5);
     tankWins.visible = false;
     
-    dummyWins = game.add.text(game.world.centerX, 20, " Player 2 Wins!", style);
+    dummyWins = game.add.text(game.world.centerX, 20, " Player 1 Wins!", style);
     dummyWins.anchor.set(0.5);
     dummyWins.visible = false;
     
@@ -145,61 +145,79 @@ var mainState = {
     tank.body.velocity.x = 0;
     tank.body.velocity.y = 0;
     tank.body.angularVelocity = 0;
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+    if(health2.length > 0 && health1.length > 0)
         {
-            tank.body.angularVelocity = -200;
-        }
-    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
-        {
-            tank.body.angularVelocity = 200;
-        }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
-        {
-            game.physics.arcade.velocityFromAngle(tank.angle, 200, tank.body.velocity);
-        }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
-        {
-            game.physics.arcade.velocityFromAngle(tank.angle, -150, tank.body.velocity);
-        }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.ALT))
-        {
-            this.fire();
-        }
+        if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+            {
+                tank.body.angularVelocity = -200;
+            }
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+            {
+                tank.body.angularVelocity = 200;
+            }
+        if (game.input.keyboard.isDown(Phaser.Keyboard.UP))
+            {
+                game.physics.arcade.velocityFromAngle(tank.angle, 200, tank.body.velocity);
+            }
+        if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
+            {
+                game.physics.arcade.velocityFromAngle(tank.angle, -150, tank.body.velocity);
+            }
+        if (game.input.keyboard.isDown(Phaser.Keyboard.ALT))
+            {
+                this.fire();
+            }
+        }   
         game.physics.arcade.collide(tank, collisionlayer);
     
     // Player 2 Movement
     dummy.body.velocity.x = 0;
     dummy.body.velocity.y = 0;
     dummy.body.angularVelocity = 0;
-    if (game.input.keyboard.isDown(Phaser.Keyboard.A))
+    if(health2.length > 0 && health1.length > 0)
         {
-            dummy.body.angularVelocity = -200;
-        }
-    else if (game.input.keyboard.isDown(Phaser.Keyboard.D))
-        {
-            dummy.body.angularVelocity = 200;
-        }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.W))
-        {
-            game.physics.arcade.velocityFromAngle(dummy.angle, 200, dummy.body.velocity);
-        }
-    if (game.input.keyboard.isDown(Phaser.Keyboard.S))
-        {
-            game.physics.arcade.velocityFromAngle(dummy.angle, -150, dummy.body.velocity);
-        }
-    if (health2.length > 0)
-        {
-            if (ammo1.length > 0)
+            if (game.input.keyboard.isDown(Phaser.Keyboard.A))
             {
-                if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
-                    {
-                        this.fire2();
-                       
-                    }
+                dummy.body.angularVelocity = -200;
+            }
+        else if (game.input.keyboard.isDown(Phaser.Keyboard.D))
+            {
+                dummy.body.angularVelocity = 200;
+            }
+        if (game.input.keyboard.isDown(Phaser.Keyboard.W))
+            {
+                game.physics.arcade.velocityFromAngle(dummy.angle, 200, dummy.body.velocity);
+            }
+        if (game.input.keyboard.isDown(Phaser.Keyboard.S))
+            {
+                game.physics.arcade.velocityFromAngle(dummy.angle, -150, dummy.body.velocity);
+            }
+        if (health2.length > 0)
+            {
+                if (ammo1.length > 0)
+                {
+                    if (game.input.keyboard.isDown(Phaser.Keyboard.Q))
+                        {
+                            this.fire2();
+
+                        }
+                }
             }
         }
     game.physics.arcade.collide(dummy, collisionlayer);
-    
+         
+    if(game.input.keyboard.isDown(Phaser.Keyboard.R))
+            {
+               console.log(game.paused);
+                //tank.reset;
+                //dummy.reset;
+                //bullet.reset;
+                //health1.reset;
+                //health2.reset;
+                game.state.restart();
+                
+            }
+
     },
     bump: function(tank, dummy){
         console.log("test");
@@ -219,7 +237,7 @@ var mainState = {
                 boom.animations.add('kaboom');
                 boom.animations.play('kaboom',10,false);
                 tankWins.visible = true;
-                game.time.events.add(Phaser.Timer.SECOND * 5, this.pauseGame, this);
+                //game.time.events.add(Phaser.Timer.SECOND * 5, this.pauseGame, this);
                 dummy.kill;
             }
     },
@@ -238,13 +256,13 @@ var mainState = {
                 boom.animations.add('kaboom');
                 boom.animations.play('kaboom',10,false);
                 dummyWins.visible = true;
-                game.time.events.add(Phaser.Timer.SECOND * 5, this.pauseGame, this);
+                //game.time.events.add(Phaser.Timer.SECOND * 5, this.pauseGame, this);
                
             }
     },
     pauseGame: function(){
-        boom.visible=false;
-        game.paused =true
+        boom.visible = false;
+        game.paused = true
     },
     resetBullet: function(bullet){
         bullet.kill();
@@ -304,7 +322,9 @@ var mainState = {
             var ammo3 = game.add.sprite(480 + (b * 30),60,'ammo');
             ammo2.push(ammo3);
         }
-    }
+    },
+
+   
 };
 
 // Initialize Phaser
