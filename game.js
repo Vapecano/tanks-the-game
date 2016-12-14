@@ -30,7 +30,7 @@ var mainState = {
     
     preload: function () {
     //Load Assets
-    game.load.tilemap('map', 'level1.json', null, Phaser.Tilemap.TILED_JSON);  
+    game.load.tilemap('map', 'bridge.json', null, Phaser.Tilemap.TILED_JSON);  
     game.load.image('tiles', 'soup.png');
     game.load.image('block','block.png');
     game.load.image('tank1','tank1.png');
@@ -54,20 +54,17 @@ var mainState = {
     //Load Map
     map = game.add.tilemap('map');
     map.addTilesetImage('soup', 'tiles');
-    tilelayer = map.createLayer('Tile Layer 3');
-    tilelayer2 = map.createLayer('backgroundLayer');
-    collisionlayer = map.createLayer('collisionLayer');
-    map.setCollisionBetween(204, 204, true, 'collisionLayer');
-    collisionlayer.resizeWorld();
+    tilelayer = map.createLayer('Backrground2');
+    tilelayer2 = map.createLayer('Backrground1');
     
     //Spawn Tank
-    tank = game.add.sprite(500,500,'tank1');
+    tank = game.add.sprite(550,300,'tank1');
     tank.anchor.set(0.5,0.5);
     game.physics.arcade.enable(tank);
     tank.body.collideWorldBounds = true;   tank.body.drag.set(0);
     
     //Spawn Dummy
-    dummy = game.add.sprite(100,100,'tank1');
+    dummy = game.add.sprite(100,300,'tank1');
     dummy.anchor.set(0.5,0.5);
     game.physics.arcade.enable(dummy);
     dummy.body.collideWorldBounds = true;   dummy.body.drag.set(0);
