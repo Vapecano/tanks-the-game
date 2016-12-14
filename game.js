@@ -168,7 +168,7 @@ var mainState = {
             {
                 game.physics.arcade.velocityFromAngle(tank.angle, -150, tank.body.velocity);
             }
-        if (game.input.keyboard.isDown(Phaser.Keyboard.ALT))
+        if (game.input.keyboard.isDown(Phaser.Keyboard.QUESTION_MARK))
             {
                 this.fire();
             }
