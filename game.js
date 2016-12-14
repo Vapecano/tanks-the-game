@@ -39,7 +39,7 @@ var mainState = {
     game.load.image('block2','block2.png');
     game.load.image('health','heart.png');
     game.load.image('ammo', 'bulletbill.png');
-    game.load.image('controls','controls.png');
+    game.load.image('controls','controls1.png');
     game.load.spritesheet('kaboom', 'explosion.png', 64, 64, 23);
     game.load.audio('music','looperino.mp3');
     },
@@ -224,6 +224,10 @@ var mainState = {
             {
                 game.state.restart();
             }
+    if (control.visible && game.input.keyboard.isDown(Phaser.Keyboard.ENTER))
+        {
+            control.visible = false;
+        }
     },
     bump2: function(dummy, bullet){
         bullet.kill();
