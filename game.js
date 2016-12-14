@@ -55,8 +55,13 @@ var mainState = {
     map = game.add.tilemap('map');
     map.addTilesetImage('soup', 'tiles');
     tilelayer = map.createLayer('Backrground2');
-    tilelayer2 = map.createLayer('Backrground1');
-    
+    tilelayer2 = map.createLayer('Backrground1');    
+    tilelayer.resizeWorld();
+    tilelayer2.resizeWorld();
+    collisionlayer = map.createLayer('Collision');
+    map.setCollisionBetween(87, 87, true, 'Collision');
+    collisionlayer.resizeWorld();
+    collisionlayer.visible= false
     //Spawn Tank
     tank = game.add.sprite(550,300,'tank1');
     tank.anchor.set(0.5,0.5);
@@ -125,7 +130,8 @@ var mainState = {
     }
     
     //Tank Ammo
-        
+    ammo1=[];
+    ammo2=[];
     this.refillAmmo1();
     this.refillAmmo2();
         
@@ -213,7 +219,11 @@ var mainState = {
         bullet.kill();
         
         var health = health1.pop();
-        health.kill();
+        
+        if(health)
+            {
+            health.kill();
+            }
         if(health1.length == 0)
             {
                 // Kill Player 1, Player 2 has Won
@@ -229,7 +239,10 @@ var mainState = {
         bullet2.kill();
         
         var health = health2.pop();
-        health.kill();
+        if(health)
+            {
+            health.kill();
+            };
         if(health2.length == 0)
             {
                 // Kill Player 1, Player 2 has Won
@@ -260,6 +273,7 @@ var mainState = {
                         game.time.events.add(Phaser.Timer.SECOND * refillTime, this.refillAmmo2, this);
                     }
                 lastBulletShotAt = game.time.now + 300;
+                console.log(ammo2.length);
             }
         }
     },
