@@ -26,6 +26,7 @@ var tankWins;
 var dummyWins;
 var boom;
 var refillTime = 2;
+var control;
 var mainState = {
     
     preload: function () {
@@ -38,6 +39,7 @@ var mainState = {
     game.load.image('block2','block2.png');
     game.load.image('health','heart.png');
     game.load.image('ammo', 'bulletbill.png');
+    game.load.image('controls','controls.png');
     game.load.spritesheet('kaboom', 'explosion.png', 64, 64, 23);
     game.load.audio('music','looperino.mp3');
     },
@@ -45,6 +47,8 @@ var mainState = {
     create: function () { 
     game.stage.backgroundColor = '#787878';
    
+    
+    
     //Music
     music = game.add.audio('music');
     music.loop = true;
@@ -62,6 +66,7 @@ var mainState = {
     map.setCollisionBetween(87, 87, true, 'Collision');
     collisionlayer.resizeWorld();
     collisionlayer.visible= false
+    
     //Spawn Tank
     tank = game.add.sprite(550,300,'tank1');
     tank.anchor.set(0.5,0.5);
@@ -138,6 +143,9 @@ var mainState = {
         
     //Create Keys
     cursors = game.input.keyboard.createCursorKeys();
+    
+    control = game.add.sprite(320,320,'controls');
+    control.anchor.set(0.5,0.5);
     },
     
     update: function(){
@@ -209,6 +217,7 @@ var mainState = {
                 }
             }
         }
+       // if ()
     game.physics.arcade.collide(dummy, collisionlayer);
          
     if(game.input.keyboard.isDown(Phaser.Keyboard.R))
