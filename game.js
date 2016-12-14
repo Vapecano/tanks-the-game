@@ -65,6 +65,7 @@ var mainState = {
     //Spawn Tank
     tank = game.add.sprite(550,300,'tank1');
     tank.anchor.set(0.5,0.5);
+    tank.angle = 180;
     game.physics.arcade.enable(tank);
     tank.body.collideWorldBounds = true;   tank.body.drag.set(0);
     
