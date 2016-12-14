@@ -18,13 +18,14 @@ var ammo2 = [];
 var maxammo = 5;
 var maxHealth = 3;
 var maxAmmo = 5;
-var ammo1 = [];
-var ammo2 = [];
+var ammo;
+var ammo3;
 var lastBulletShotAt = 0;
 var lastBulletShotAt2 = 0;
 var tankWins;
 var dummyWins;
 var boom;
+var refillTime = 2;
 var mainState = {
     
     preload: function () {
@@ -125,18 +126,11 @@ var mainState = {
         health2.push(health3);
     }
     
-        for(var a = 0; a < maxAmmo; a++)
-    {
-        var ammo = game.add.sprite(20 + (a * 30),60,'ammo');
-        ammo1.push(ammo);
-    }
-        for(var b = 0; b < maxAmmo; b++)
-    {
-        var ammo3 = game.add.sprite(480 + (b * 30),60,'ammo');
-        ammo2.push(ammo3);
-    }
-
-    
+    //Tank Ammo
+        
+    this.refillAmmo1();
+    this.refillAmmo2();
+        
     //Create Keys
     cursors = game.input.keyboard.createCursorKeys();
     },
@@ -146,7 +140,7 @@ var mainState = {
     game.physics.arcade.collide(tank, dummy, this.bump, null, this);
     game.physics.arcade.overlap(bullets, dummy, this.bump2, null, this);
     game.physics.arcade.overlap(bullets2, tank, this.bump3, null, this);
-    
+        
     //Player 1 Movement    
     tank.body.velocity.x = 0;
     tank.body.velocity.y = 0;
@@ -257,7 +251,7 @@ var mainState = {
     },
     fire: function()
     {
-        if (game.time.now > lastBulletShotAt)
+        if (ammo2.length > 0 && game.time.now > lastBulletShotAt)
         {
             bullet = bullets.getFirstExists(false);
             if (bullet)
@@ -267,13 +261,17 @@ var mainState = {
                 game.physics.arcade.velocityFromAngle(tank.angle, 900, bullet.body.velocity);
                 var ammu = ammo2.pop();
                 ammu.kill();
+                if(ammo2.length == 0)
+                    {
+                        game.time.events.add(Phaser.Timer.SECOND * refillTime, this.refillAmmo2, this);
+                    }
                 lastBulletShotAt = game.time.now + 300;
             }
         }
     },
    fire2: function()
     {
-        if (game.time.now > lastBulletShotAt2)
+        if (ammo1.length > 0 && game.time.now > lastBulletShotAt2)
         {
             bullet2 = bullets2.getFirstExists(false);
             if (bullet2)
@@ -283,8 +281,28 @@ var mainState = {
                 game.physics.arcade.velocityFromAngle(dummy.angle, 900, bullet2.body.velocity);
                 var ammu = ammo1.pop();
                 ammu.kill();
+                if(ammo1.length == 0)
+                    {
+                        game.time.events.add(Phaser.Timer.SECOND * refillTime, this.refillAmmo1, this);
+                    }
                 lastBulletShotAt2 = game.time.now + 300;
             }
+        }
+    },
+    refillAmmo1: function()
+    {
+        for(var a = 0; a < maxAmmo; a++)
+            {
+                var ammo = game.add.sprite(20 + (a * 30),60,'ammo');
+                ammo1.push(ammo);
+            }   
+    },
+    refillAmmo2: function()
+    {
+        for(var b = 0; b < maxAmmo; b++)
+        {
+            var ammo3 = game.add.sprite(480 + (b * 30),60,'ammo');
+            ammo2.push(ammo3);
         }
     }
 };
