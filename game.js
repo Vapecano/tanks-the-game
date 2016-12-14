@@ -61,13 +61,13 @@ var mainState = {
     collisionlayer.resizeWorld();
     
     //Spawn Tank
-    tank = game.add.sprite(300,300,'tank1');
+    tank = game.add.sprite(500,500,'tank1');
     tank.anchor.set(0.5,0.5);
     game.physics.arcade.enable(tank);
     tank.body.collideWorldBounds = true;   tank.body.drag.set(0);
     
     //Spawn Dummy
-    dummy = game.add.sprite(200,200,'tank1');
+    dummy = game.add.sprite(100,100,'tank1');
     dummy.anchor.set(0.5,0.5);
     game.physics.arcade.enable(dummy);
     dummy.body.collideWorldBounds = true;   dummy.body.drag.set(0);
