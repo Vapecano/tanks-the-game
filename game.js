@@ -114,12 +114,13 @@ var mainState = {
     
     
     //Tank Health
+    health1 = [];
     for(var h = 0; h < maxHealth; h++)
     {
         var health = game.add.sprite(20 + (h * 30),20,'health');
         health1.push(health);
     }
-    
+    health2 = [];
     for(var k = 0; k < maxHealth; k++)
     {
         var health3 = game.add.sprite(480 + (k * 30),20,'health');
@@ -208,27 +209,14 @@ var mainState = {
          
     if(game.input.keyboard.isDown(Phaser.Keyboard.R))
             {
-               console.log(game.paused);
-                //tank.reset;
-                //dummy.reset;
-                //bullet.reset;
-                //health1.reset;
-                //health2.reset;
                 game.state.restart();
-                
             }
-
-    },
-    bump: function(tank, dummy){
-        console.log("test");
     },
     bump2: function(dummy, bullet){
-        console.log("test2");
         bullet.kill();
         
         var health = health1.pop();
         health.kill();
-        
         if(health1.length == 0)
             {
                 // Kill Player 1, Player 2 has Won
@@ -237,17 +225,14 @@ var mainState = {
                 boom.animations.add('kaboom');
                 boom.animations.play('kaboom',10,false);
                 tankWins.visible = true;
-                //game.time.events.add(Phaser.Timer.SECOND * 5, this.pauseGame, this);
                 dummy.kill;
             }
     },
     bump3: function(tank, bullet2){
-        console.log("test3");
         bullet2.kill();
         
         var health = health2.pop();
         health.kill();
-        
         if(health2.length == 0)
             {
                 // Kill Player 1, Player 2 has Won
@@ -256,13 +241,7 @@ var mainState = {
                 boom.animations.add('kaboom');
                 boom.animations.play('kaboom',10,false);
                 dummyWins.visible = true;
-                //game.time.events.add(Phaser.Timer.SECOND * 5, this.pauseGame, this);
-               
             }
-    },
-    pauseGame: function(){
-        boom.visible = false;
-        game.paused = true
     },
     resetBullet: function(bullet){
         bullet.kill();
