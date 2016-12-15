@@ -35,6 +35,7 @@ var mainState = {
     game.load.image('tiles', 'soup.png');
     game.load.image('block','block.png');
     game.load.image('tank1','tank1.png');
+    game.load.image('dummy','tank2.png');
     game.load.image('bullet','bullet.png');
     game.load.image('block2','block2.png');
     game.load.image('health','heart.png');
@@ -76,7 +77,7 @@ var mainState = {
     tank.body.collideWorldBounds = true;   tank.body.drag.set(0);
     
     //Spawn Dummy
-    dummy = game.add.sprite(50,50,'tank1');
+    dummy = game.add.sprite(50,50,'dummy');
     dummy.anchor.set(0.5,0.5);
     game.physics.arcade.enable(dummy);
     dummy.body.collideWorldBounds = true;   dummy.body.drag.set(0);
